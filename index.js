@@ -80,20 +80,15 @@ async function run() {
     };
     //
     // resMembers api
-    app.get('/resMembers', async (req, res) => {
+    app.get('/resMembers',verifyToken, async (req, res) => {
       const email = req.query.email; 
       const filter = { email: email };
       const result = await resMemberCollection.find(filter).toArray();
       res.send(result);
     });
     
-    app.post('/resMembers',async(req,res)=>{
+    app.post('/resMembers', verifyToken, async(req,res)=>{
       const user = req.body;
-      const query = { email: user?.email };
-      const exitingres = await resMemberCollection.findOne(query);
-      if (exitingres) {
-        return res.send({ message: "Registration already complete", insertedId: null });
-      }
       const result = await resMemberCollection.insertOne(user);
       res.send(result);
     })
