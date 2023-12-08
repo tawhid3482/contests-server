@@ -27,7 +27,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    // await client.connect();
+    // await client.connect()
     // all collections
     const resgisterCollection = client
       .db("last-assignment")
